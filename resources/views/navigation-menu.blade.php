@@ -97,6 +97,10 @@
                             </div>
 
                             <x-jet-dropdown-link href="{{ route('profile.show') }}">
+                                {{ __('Panel Administración') }}
+                            </x-jet-dropdown-link>
+
+                            <x-jet-dropdown-link href="{{ route('profile.show') }}">
                                 {{ __('Profile') }}
                             </x-jet-dropdown-link>
 
@@ -159,6 +163,10 @@
 
             <div class="mt-3 space-y-1">
                 <!-- Account Management -->
+                <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
+                    {{ __('Panel Administración') }}
+                </x-jet-responsive-nav-link>
+
                 <x-jet-responsive-nav-link href="{{ route('profile.show') }}" :active="request()->routeIs('profile.show')">
                     {{ __('Profile') }}
                 </x-jet-responsive-nav-link>
