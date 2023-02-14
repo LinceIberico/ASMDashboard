@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Dashboard\UserController;
+use App\Http\Controllers\Dashboard\ClientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +20,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+//ADMIN ROUTES
+
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:super|admin|empleado|cliente'])->group(function () {
+    Route::get('/home', function () {return view('home');})->name('inicio');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+
+
+    //USUARIOS
+    Route::get('/dashboard/usuarios', [UserController::class, 'index'])->name('user.index');
+    Route::get('/dashboard/nuevo-usuario', [UserController::class, 'create'])->name('user.create');
+    Route::put('/dashboard/usuarios/edit', [UserController::class, 'edit'])->name('user.edit');
+
+
+    //CLIENTES
+    Route::get('/dashboard/clientes', [ClientController::class, 'index'])->name('client.index');
 });
+// Route::middleware(['auth','role:super|admin|empleado|cliente'])->group(function () {
+//     // Route::get('/user/profile',[Auth])
+//     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
+//     Route::get('/user/profile', [DashboardController::class, 'userProfile'])->name('userProfile');
+//     Route::get('/dashboard/usuarios', [UserController::class, 'index'])->name('user.index');
+
+// });

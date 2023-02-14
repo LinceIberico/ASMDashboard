@@ -14,9 +14,9 @@ return [
     |
     */
 
-    'title' => 'AdminLTE 3',
+    'title' => '',
     'title_prefix' => '',
-    'title_postfix' => '',
+    'title_postfix' => ' | '.env('APP_NAME'),
 
     /*
     |--------------------------------------------------------------------------
@@ -63,8 +63,8 @@ return [
     |
     */
 
-    'logo' => '<b>Admin</b>LTE',
-    'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
+    'logo' => '<b>ASM-Dashboard</b>',
+    'logo_img' => 'vendor/adminlte/dist/img/Logo_ASM_alien.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,
     'logo_img_xl_class' => 'brand-image-xs',
@@ -107,13 +107,13 @@ return [
     */
 
     'preloader' => [
-        'enabled' => true,
+        'enabled' => false,
         'img' => [
-            'path' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
-            'alt' => 'AdminLTE Preloader Image',
-            'effect' => 'animation__shake',
-            'width' => 60,
-            'height' => 60,
+            'path' => 'vendor/adminlte/dist/img/Logo_ASM_alien.png',
+            'alt' => 'preloader Image',
+            'effect' => 'animation_wobble',
+            'width' => 260,
+            'height' => 260,
         ],
     ],
 
@@ -131,7 +131,7 @@ return [
 
     'usermenu_enabled' => true,
     'usermenu_header' => false,
-    'usermenu_header_class' => 'bg-primary',
+    'usermenu_header_class' => 'bg-info',
     'usermenu_image' => false,
     'usermenu_desc' => false,
     'usermenu_profile_url' => false,
@@ -187,12 +187,12 @@ return [
     */
 
     'classes_body' => '',
-    'classes_brand' => '',
+    'classes_brand' => 'info',
     'classes_brand_text' => '',
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-primary elevation-4',
+    'classes_sidebar' => 'sidebar-dark-secondary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -253,13 +253,13 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
     'password_reset_url' => 'password/reset',
     'password_email_url' => 'password/email',
-    'profile_url' => false,
+    'profile_url' => 'user/profile',
 
     /*
     |--------------------------------------------------------------------------
@@ -291,82 +291,228 @@ return [
 
     'menu' => [
         // Navbar items:
-        [
-            'type'         => 'navbar-search',
-            'text'         => 'search',
-            'topnav_right' => true,
-        ],
+        // [
+        //     'type'         => 'navbar-search',
+        //     'text'         => 'search',
+        //     'topnav_right' => true,
+        // ],
         [
             'type'         => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         // Sidebar items:
+        // [
+        //     'type' => 'sidebar-menu-search',
+        //     'text' => 'search',
+        // ],
+        // [
+        //     'text' => 'blog',
+        //     'url'  => 'admin/blog',
+        //     'can'  => 'manage-blog',
+        // ],
+        // [
+        //     'text'        => 'pages',
+        //     'url'         => 'admin/pages',
+        //     'icon'        => 'far fa-fw fa-file',
+        //     'label'       => 4,
+        //     'label_color' => 'success',
+        // ],
+        ['header' => 'ESTADÍSTICAS'  ,  'classes'  => 'text-teal text-bold text-center',],
+        // [
+        //     'text' => 'profile',
+        //     'url'  => 'admin/settings',
+        //     'icon' => 'fas fa-fw fa-user',
+        // ],
         [
-            'type' => 'sidebar-menu-search',
-            'text' => 'search',
+            'text' => 'Inicio',
+            'url'  => 'dashboard',
+            // 'icon' => 'fas fa-home',
+            'icon' => 'fas fa-chart-line',
+            'icon_color' => 'warning',
+            // 'classes' => 'text-white',
         ],
+        ['header' => 'GESTIÓN DE USUARIOS',  'classes'  => 'text-teal text-bold text-center',],
         [
-            'text' => 'blog',
-            'url'  => 'admin/blog',
-            'can'  => 'manage-blog',
-        ],
-        [
-            'text'        => 'pages',
-            'url'         => 'admin/pages',
-            'icon'        => 'far fa-fw fa-file',
-            'label'       => 4,
-            'label_color' => 'success',
-        ],
-        ['header' => 'account_settings'],
-        [
-            'text' => 'profile',
+            'text' => 'Usuarios',
             'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-user',
-        ],
-        [
-            'text' => 'change_password',
-            'url'  => 'admin/settings',
-            'icon' => 'fas fa-fw fa-lock',
-        ],
-        [
-            'text'    => 'multilevel',
-            'icon'    => 'fas fa-fw fa-share',
+            'icon' => 'fas fa-user-cog',
+            'icon_color' => 'warning',
+            // 'classes' => 'text-white',
             'submenu' => [
                 [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Nuevo Usuario',
+                    'url' => 'dashboard/nuevo-usuario',
+                    'icon' => 'fas fa-user-plus',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
                 ],
                 [
-                    'text'    => 'level_one',
-                    'url'     => '#',
-                    'submenu' => [
-                        [
-                            'text' => 'level_two',
-                            'url'  => '#',
-                        ],
-                        [
-                            'text'    => 'level_two',
-                            'url'     => '#',
-                            'submenu' => [
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                                [
-                                    'text' => 'level_three',
-                                    'url'  => '#',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-                [
-                    'text' => 'level_one',
-                    'url'  => '#',
+                    'text' => 'Usuarios',
+                    'url' => 'dashboard/usuarios',
+                    'icon' => 'fas fa-users',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
                 ],
             ],
         ],
+        [
+            'text' => 'Clientes',
+            'url'  => 'admin/settings',
+            'icon' => 'fas fa-user-friends',
+            'icon_color' => 'warning',
+            // 'classes' => 'text-white',
+            'submenu' => [
+                [
+                    'text' => 'Nuevo Cliente',
+                    'icon' => 'fas fa-user-plus',
+                    'url' => '',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Clientes',
+                    'url' => 'dashboard/clientes',
+                    'icon' => 'fas fa-users',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Citas',
+                    'url' => '',
+                    'icon' => 'fas fa-clock',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Pedidos',
+                    'url' => '',
+                    'icon' => 'fas fa-shopping-cart',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Empleados',
+            // 'url'  => 'admin/settings',
+            'icon' => 'fas fa-user-tie',
+            'icon_color' => 'warning',
+            // 'classes' => 'text-white',
+            'submenu' => [
+                [
+                    'text' => 'Nuevo Empleado',
+                    'url' => '',
+                    'icon' => 'fas fa-user-plus',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Empleados',
+                    'url' => '',
+                    'icon' => 'fas fa-users',
+                    'icon_color' => 'warning',
+                    'classes' => 'px-4',
+                ],
+            ],
+        ],
+        ['header' => 'GESTIÓN DE EMPRESA' ,  'classes'  => 'text-teal text-bold text-center',],
+        [
+            'text' => 'Productos',
+            // 'url'  => 'admin/settings',
+            'icon' => 'fas fa-th-list',
+            'icon_color' => 'primary',
+            // 'classes' => 'text-white',
+            'submenu' => [
+                [
+                    'text' => 'Nuevo Producto',
+                    'url' => '',
+                    'icon' => 'fas fa-plus',
+                    'icon_color' => 'primary',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Productos',
+                    'url' => '',
+                    'icon' => 'fas fa-table',
+                    'icon_color' => 'primary',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Nueva Categoría',
+                    'url' => '',
+                    'icon' => 'fas fa-plus',
+                    'icon_color' => 'primary',
+                    'classes' => 'px-4',
+                ],
+                [
+                    'text' => 'Categorías',
+                    'url' => '',
+                    'icon' => 'fas fa-tags',
+                    'icon_color' => 'primary',
+                    'classes' => 'px-4',
+                ],
+            ],
+        ],
+        [
+            'text' => 'Facturas',
+            'url'  => 'dashboard/usuarios',
+            'icon' => 'fas fa-hand-holding-usd',
+            'icon_color' => 'primary',
+            // 'classes' => 'text-white',
+        ],
+        [
+            'text' => 'Jornadas',
+            'url' => '',
+            'icon' => 'fas fa-history',
+            'icon_color' => 'primary',
+            // 'classes' => 'text-white',
+        ],
+        [
+            'text' => 'Horarios',
+            'url' => '',
+            'icon' => 'fas fa-business-time',
+            'icon_color' => 'primary',
+            // 'classes' => 'text-white',
+        ],
+        // [
+        //     'text'    => 'multilevel',
+        //     'icon'    => 'fas fa-fw fa-share',
+        //     'submenu' => [
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //         [
+        //             'text'    => 'level_one',
+        //             'url'     => '#',
+        //             'submenu' => [
+        //                 [
+        //                     'text' => 'level_two',
+        //                     'url'  => '#',
+        //                 ],
+        //                 [
+        //                     'text'    => 'level_two',
+        //                     'url'     => '#',
+        //                     'submenu' => [
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                         [
+        //                             'text' => 'level_three',
+        //                             'url'  => '#',
+        //                         ],
+        //                     ],
+        //                 ],
+        //             ],
+        //         ],
+        //         [
+        //             'text' => 'level_one',
+        //             'url'  => '#',
+        //         ],
+        //     ],
+        // ],
         ['header' => 'labels'],
         [
             'text'       => 'important',
@@ -466,7 +612,7 @@ return [
             ],
         ],
         'Sweetalert2' => [
-            'active' => false,
+            'active' => true,
             'files' => [
                 [
                     'type' => 'js',

@@ -31,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        // 'role_id',
     ];
 
     /**
@@ -61,6 +62,7 @@ class User extends Authenticatable
      */
     protected $appends = [
         'profile_photo_url',
+        // 'role',
     ];
 
     //RELACIONES
@@ -71,4 +73,17 @@ class User extends Authenticatable
     public function employee(){
         return $this->hasOne(Employee::class);
     }
+
+    public function role(){
+        return $this->belongsToMany(Role::class);
+    }
+    // public function getRoleAttribute(){
+        
+    //     $users = User::find($this->id);
+    //     $users->getRoleNames();
+    //     // $users = User::with('roles')->get();
+        
+    //     // dd($users);
+    //     return $users;
+    // }
 }
