@@ -32,6 +32,7 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     //USUARIOS
     Route::get('/dashboard/usuarios', [UserController::class, 'index'])->name('user.index');
     Route::get('/dashboard/nuevo-usuario', [UserController::class, 'create'])->name('user.create');
+    Route::post('/dashboard/crear-usuario', [UserController::class, 'store'])->name('user.store');
     Route::put('/dashboard/usuarios/edit', [UserController::class, 'edit'])->name('user.edit');
 
 

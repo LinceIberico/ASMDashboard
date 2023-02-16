@@ -146,7 +146,8 @@ final class UserTable extends PowerGridComponent
     {
         return [
             Column::make('ID', 'id')
-                ->makeInputRange(),
+            ->sortable()
+            ->makeInputRange(),
 
             Column::make('NAME', 'name')
                 ->sortable()
@@ -206,7 +207,7 @@ final class UserTable extends PowerGridComponent
     {
        return [
            Button::make('edit', 'Edit')
-               ->class('bg-primary cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
+               ->class('bg-blue-500 cursor-pointer text-white px-3 py-2.5 m-1 rounded text-sm')
                ->route('user.edit', ['user' => 'id']),
 
         //    Button::make('destroy', 'Delete')
