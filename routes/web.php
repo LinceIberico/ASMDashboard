@@ -2,9 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\DashboardController;
+use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Dashboard\UserController;
 use App\Http\Controllers\Dashboard\ClientController;
-
+use App\Models\User;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,6 +20,18 @@ use App\Http\Controllers\Dashboard\ClientController;
 
 Route::get('/', function () {
     return view('welcome');
+});
+
+//SOCIALITE OAuth
+ 
+Route::get('/google-auth/redirect', function () {
+    return Socialite::driver('google')->redirect();
+});
+ 
+Route::get('/google-auth/callback', function () {
+    $user = Socialite::driver('google')->user();
+    dd($user);
+    // $user->token
 });
 
 
