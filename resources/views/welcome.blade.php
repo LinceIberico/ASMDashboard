@@ -29,7 +29,7 @@
                     @auth
                         <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
                     @else
-                        <a href="/google-auth/redirect" class="text-sm text-gray-700 dark:text-gray-500 underline">Registrate con Google</a>
+                        <a href="/google-auth/redirect" class="text-sm text-gray-700 dark:text-gray-500 underline">Accede con Google</a>
                         
                         <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 

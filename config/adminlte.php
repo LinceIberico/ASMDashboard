@@ -63,7 +63,7 @@ return [
     |
     */
 
-    'logo' => '<b>'.$_ENV['APP_NAME'].'</b>',
+    'logo' => '<b>ASM_DASHBOARD</b>',
     'logo_img' => 'vendor/adminlte/dist/img/Logo_ASM_alien.png',
     'logo_img_class' => 'brand-image img-circle elevation-3',
     'logo_img_xl' => null,

@@ -11,6 +11,8 @@ use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Permission\Models\Role;
+
 
 class User extends Authenticatable
 {
@@ -22,6 +24,8 @@ class User extends Authenticatable
     use HasRoles;
     use SoftDeletes;
 
+
+    protected $table = 'users';
     /**
      * The attributes that are mass assignable.
      *
@@ -31,7 +35,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        // 'google_id',
+        'google_id',
     ];
 
     /**
@@ -77,13 +81,13 @@ class User extends Authenticatable
     public function role(){
         return $this->belongsToMany(Role::class);
     }
-    // public function getRoleAttribute(){
+    public function getRoleAttribute(){
         
-    //     $users = User::find($this->id);
-    //     $users->getRoleNames();
-    //     // $users = User::with('roles')->get();
+        $users = User::all();
+        $users->getRoleNames()->implode(', ');
+        // $users = User::with('roles')->get();
         
-    //     // dd($users);
-    //     return $users;
-    // }
+        // dd($users);
+        return $users;
+    }
 }

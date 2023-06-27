@@ -8,6 +8,8 @@
 
 @section('content')
     <div class="container mx-auto m-4">
+        <x-messages.flash-messages/>
+
         <x-dash>
             @livewire('user-table')
         </x-dash>
@@ -20,6 +22,9 @@
 
 @section('js')
     <script>
-        // Swal.fire('Any fool can use a computer')
+        $("#close").hover(function(){
+            $("#alert-message").hide();
+        });
+
     </script>
 @stop

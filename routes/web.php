@@ -29,16 +29,27 @@ Route::get('/google-auth/redirect', function () {
 });
  
 Route::get('/google-auth/callback', function () {
-    $user = Socialite::driver('google')->user();
-    dd($user);
-    // $user->token
+    $user_google = Socialite::driver('google')->stateless()->user();
+
+    $user = User::updateOrCreate([
+        'google_id' => $user_google->id,
+    ],[
+        'name' => $user_google->name,
+        'email' => $user_google->email,
+        'password' => Hash::make(Str::random(10)),
+    ]);
+
+    $user->assignRole('cliente');
+
+    Auth::login($user);
+    
+    return redirect('/home');
 });
 
 
 //ADMIN ROUTES
 
-
-Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:super|admin|empleado|cliente'])->group(function () {
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','role:super|admin|empleado'])->group(function () {
     Route::get('/home', function () {return view('home');})->name('inicio');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('home');
 
@@ -47,8 +58,10 @@ Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified','r
     Route::get('/dashboard/usuarios', [UserController::class, 'index'])->name('user.index');
     Route::get('/dashboard/nuevo-usuario', [UserController::class, 'create'])->name('user.create');
     Route::post('/dashboard/crear-usuario', [UserController::class, 'store'])->name('user.store');
-    Route::put('/dashboard/usuarios/edit', [UserController::class, 'edit'])->name('user.edit');
-
+    Route::get('/dashboard/usuarios/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+    Route::put('/dashboard/usuarios/update', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/dashboard/usuarios/delete/{user}', [UserController::class, 'delete'])->name('user.delete');
+    Route::post('/dashboard/usuarios/restore/{user}', [UserController::class, 'restore'])->name('user.restore');
 
     //CLIENTES
     Route::get('/dashboard/clientes', [ClientController::class, 'index'])->name('client.index');

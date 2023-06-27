@@ -27,9 +27,15 @@
                       Nombre Usuario
                     </span>
                     <input type="text" name="name" class="lg:text-lg md:text-base mt-1 px-3 py-2 bg-white border-2 placeholder-slate-400 focus:outline-none focus:border-sky-500 focus:ring-sky-500 block w-full rounded-md sm:lgfocus:ring-1" placeholder="username" />
-                    @error('name')
-                        <small>{{$message}}</small>
-                    @enderror
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                   </label>
                   <label class="block">
                     <span class="after:content-['*'] after:ml-0.5 after:text-red-500 block text-lg font-medium text-slate-700">
@@ -57,17 +63,17 @@
 
                         @foreach ($roles as $rol)
                         {{-- {{print_r($rol)}} --}}
-                            <option class="lg:text-lg md:text-base" value="{{$rol->id}}">{{$rol->name}}</option>
+                            <option class="lg:text-lg md:text-base" value="{{$rol->name}}">{{$rol->name}}</option>
                         @endforeach
 
                     </select>
                   </label>
                   <div class="flex justify-center p-2">
                     <div class="px-2">
-                        <x-buttons.accept type="submit" id="btnCrear">Crear</x-buttons.accept>
+                        <x-buttons.accept id="btnCrear">Crear</x-buttons.accept>
                     </div>
                     <div class="px-2">
-                        <x-buttons.cancel type="reset">Borrar</x-buttons.cancel>
+                        <x-buttons.back route="user.index">Volver</x-buttons.back>
                     </div>
                   </div>
 
@@ -81,7 +87,8 @@
 @stop
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+{{-- <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script> --}}
+
     <script>
 $("#btnCrear").click(validar);
 
@@ -164,7 +171,7 @@ function validar(evento) {
     if (bValidarFormulario) { // Si todo OK
 
         swal.fire({
-            text: 'Se ha creado el usuario con Éxito',
+            text: 'Datos Correctos',
             icon: 'success',
             //confirmButtonText: "Aceptar",
             //timer: 5000,
